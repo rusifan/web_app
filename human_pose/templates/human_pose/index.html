@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hello world!</h1>
+    <!-- form to upload image to be used by pytorch model in views.py-->
+    <form method = "post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form>
+    <!-- display image uploaded in the form-->
+    {% if image_uri %}
+        <p>Uploaded image:</p>
+        <img src="{{ image_url }}">
+    {% endif %}
+    <!-- display prediction -->
+    {% block content %}
+        {%for prediction in out_3d%}
+            <p>{{prediction}}</p>
+        {%endfor%}
+    {% endblock %}
+    <!-- display plot image -->
+    {% if plot_image %}
+        <p>Plot image:</p>
+        <img src="{{ plot_image }}">
+    {% endif %}
+</body>
+</html>
